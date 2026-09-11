@@ -7,333 +7,346 @@
 <title>YouTube Thumbnail Downloader</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    min-height: 100vh;
-    background:
-        radial-gradient(circle at top, #3b0000 0%, #130000 35%, #080808 75%);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+body{
+    font-family:Arial, sans-serif;
+    min-height:100vh;
+    background:#080808;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    padding:25px 15px;
 }
 
-.container {
-    width: 100%;
-    max-width: 620px;
+.container{
+    width:100%;
+    max-width:600px;
 }
 
-.card {
-    background: rgba(25, 25, 25, 0.94);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 24px;
-    padding: 28px;
-    box-shadow: 0 25px 70px rgba(0,0,0,0.55);
-    backdrop-filter: blur(12px);
+/* Header */
+
+.header{
+    text-align:center;
+    margin:20px 0 25px;
 }
 
-.logo {
-    width: 65px;
-    height: 65px;
-    margin: 0 auto 15px;
-    border-radius: 18px;
-    background: #ff0000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 31px;
-    box-shadow: 0 10px 30px rgba(255,0,0,0.3);
+.logo{
+    width:70px;
+    height:70px;
+    margin:auto;
+    border-radius:20px;
+    background:#ff0000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    box-shadow:0 10px 30px rgba(255,0,0,.3);
 }
 
-h1 {
-    text-align: center;
-    font-size: 29px;
-    margin-bottom: 9px;
+h1{
+    margin-top:17px;
+    font-size:28px;
 }
 
-.subtitle {
-    text-align: center;
-    color: #aaa;
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 25px;
+.header p{
+    color:#999;
+    margin-top:8px;
+    font-size:14px;
 }
 
-.input-box {
-    position: relative;
+/* Card */
+
+.card{
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:22px;
+    padding:20px;
 }
 
-input {
-    width: 100%;
-    height: 55px;
-    padding: 0 17px;
-    border: 1px solid #3a3a3a;
-    border-radius: 13px;
-    background: #111;
-    color: white;
-    outline: none;
-    font-size: 15px;
+/* Input */
+
+.input{
+    width:100%;
+    height:55px;
+    background:#0d0d0d;
+    border:1px solid #333;
+    border-radius:12px;
+    color:#fff;
+    padding:0 15px;
+    font-size:15px;
+    outline:none;
 }
 
-input:focus {
-    border-color: #ff3030;
-    box-shadow: 0 0 0 3px rgba(255,0,0,0.08);
+.input:focus{
+    border-color:#ff0000;
 }
 
-input::placeholder {
-    color: #777;
+/* Main Button */
+
+.get{
+    width:100%;
+    height:54px;
+    margin-top:12px;
+    border:0;
+    border-radius:12px;
+    background:#ff0000;
+    color:#fff;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.get-btn {
-    width: 100%;
-    height: 54px;
-    margin-top: 12px;
-    border: none;
-    border-radius: 13px;
-    background: linear-gradient(135deg, #ff0000, #d40000);
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
+.get:active{
+    transform:scale(.98);
 }
 
-.get-btn:hover {
-    transform: translateY(-1px);
+/* Error */
+
+.error{
+    display:none;
+    background:#2a1010;
+    color:#ff7777;
+    border:1px solid #4a2020;
+    border-radius:10px;
+    padding:12px;
+    text-align:center;
+    margin-top:12px;
+    font-size:14px;
 }
 
-.get-btn:active {
-    transform: scale(0.98);
+/* Result */
+
+.result{
+    display:none;
+    margin-top:22px;
 }
 
-.error {
-    display: none;
-    margin-top: 14px;
-    padding: 12px;
-    border-radius: 10px;
-    background: rgba(255,0,0,0.08);
-    border: 1px solid rgba(255,0,0,0.25);
-    color: #ff6b6b;
-    text-align: center;
-    font-size: 14px;
+.label{
+    color:#aaa;
+    font-size:14px;
+    margin-bottom:10px;
 }
 
-.result {
-    display: none;
-    margin-top: 25px;
+/* Preview */
+
+.preview{
+    width:100%;
+    background:#000;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid #333;
 }
 
-.preview-title {
-    font-size: 15px;
-    color: #bbb;
-    margin-bottom: 10px;
+.preview img{
+    display:block;
+    width:100%;
+    height:auto;
 }
 
-.preview {
-    background: #080808;
-    border-radius: 15px;
-    overflow: hidden;
-    border: 1px solid #292929;
+/* Quality */
+
+.quality{
+    display:flex;
+    gap:10px;
+    margin-top:14px;
 }
 
-.preview img {
-    display: block;
-    width: 100%;
-    height: auto;
+.quality button{
+    flex:1;
+    height:44px;
+    background:#222;
+    border:1px solid #383838;
+    color:#ccc;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.quality {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
+.quality button.active{
+    background:#ff0000;
+    border-color:#ff0000;
+    color:#fff;
 }
 
-.quality button {
-    flex: 1;
-    height: 45px;
-    border: 1px solid #383838;
-    border-radius: 10px;
-    background: #191919;
-    color: #ddd;
-    cursor: pointer;
-    font-weight: bold;
+/* Download */
+
+.download{
+    width:100%;
+    height:56px;
+    margin-top:14px;
+    border:0;
+    border-radius:12px;
+    background:#19a34a;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 7px 20px rgba(25,163,74,.18);
 }
 
-.quality button.active {
-    background: #ff0000;
-    border-color: #ff0000;
-    color: white;
+.download:active{
+    transform:scale(.98);
 }
 
-.buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 12px;
+/* Copy */
+
+.copy{
+    width:100%;
+    height:48px;
+    margin-top:10px;
+    border:1px solid #3b3b3b;
+    border-radius:12px;
+    background:#222;
+    color:white;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.buttons button {
-    flex: 1;
-    height: 50px;
-    border: none;
-    border-radius: 11px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
+/* Info */
+
+.info{
+    text-align:center;
+    color:#777;
+    font-size:12px;
+    margin-top:18px;
+    line-height:1.5;
 }
 
-.download {
-    background: #16a34a;
-    color: white;
+/* Footer */
+
+.footer{
+    text-align:center;
+    color:#555;
+    font-size:12px;
+    margin-top:18px;
 }
 
-.download:hover {
-    background: #12833b;
-}
+/* Mobile */
 
-.copy {
-    background: #292929;
-    color: white;
-}
+@media(max-width:480px){
 
-.copy:hover {
-    background: #353535;
-}
-
-.info {
-    text-align: center;
-    color: #777;
-    font-size: 12px;
-    margin-top: 20px;
-    line-height: 1.5;
-}
-
-.footer {
-    text-align: center;
-    color: #555;
-    font-size: 12px;
-    margin-top: 15px;
-}
-
-@media (max-width: 480px) {
-
-    body {
-        padding: 12px;
+    body{
+        padding:15px 10px;
     }
 
-    .card {
-        padding: 20px;
-        border-radius: 20px;
+    .card{
+        padding:16px;
     }
 
-    h1 {
-        font-size: 24px;
+    h1{
+        font-size:24px;
     }
 
-    .logo {
-        width: 58px;
-        height: 58px;
-        font-size: 27px;
+    .logo{
+        width:62px;
+        height:62px;
+        font-size:28px;
     }
 
-    .buttons {
-        flex-direction: column;
-    }
-
-    .buttons button {
-        width: 100%;
-    }
 }
 </style>
 </head>
+
 
 <body>
 
 <div class="container">
 
-    <div class="card">
+    <div class="header">
 
         <div class="logo">▶</div>
 
-        <h1>YouTube Thumbnail Downloader</h1>
+        <h1>YouTube Thumbnail</h1>
 
-        <p class="subtitle">
-            YouTube video ka link paste karo aur high-quality thumbnail download karo.
+        <p>
+            Download YouTube thumbnails in high quality
         </p>
 
-        <div class="input-box">
-            <input
-                type="text"
-                id="youtubeUrl"
-                placeholder="Paste YouTube video URL..."
-                autocomplete="off"
-            >
-        </div>
+    </div>
 
-        <button class="get-btn" onclick="getThumbnail()">
+
+    <div class="card">
+
+        <input
+            id="url"
+            class="input"
+            type="text"
+            placeholder="Paste YouTube video link..."
+        >
+
+        <button class="get" onclick="getThumbnail()">
             🔍 Get Thumbnail
         </button>
 
-        <div class="error" id="error">
-            ❌ Please enter a valid YouTube video link.
-        </div>
 
-        <div class="result" id="result">
+        <div id="error" class="error"></div>
 
-            <div class="preview-title">
+
+        <div id="result" class="result">
+
+            <div class="label">
                 Thumbnail Preview
             </div>
 
+
             <div class="preview">
-                <img id="thumbnail" src="" alt="YouTube Thumbnail">
+
+                <img
+                    id="thumbnail"
+                    src=""
+                    alt="YouTube Thumbnail"
+                >
+
             </div>
+
 
             <div class="quality">
 
                 <button
-                    id="hdBtn"
+                    id="hd"
                     class="active"
-                    onclick="selectQuality('hd')">
+                    onclick="setQuality('hd')">
                     HD Quality
                 </button>
 
                 <button
-                    id="sdBtn"
-                    onclick="selectQuality('sd')">
-                    Standard
+                    id="hq"
+                    onclick="setQuality('hq')">
+                    HQ Quality
                 </button>
 
             </div>
 
-            <div class="buttons">
 
-                <button
-                    class="download"
-                    onclick="downloadThumbnail()">
-                    ⬇️ Download
-                </button>
+            <button
+                class="download"
+                onclick="downloadImage()">
+                ⬇️ DOWNLOAD THUMBNAIL
+            </button>
 
-                <button
-                    class="copy"
-                    onclick="copyThumbnailURL()">
-                    📋 Copy URL
-                </button>
 
-            </div>
+            <button
+                id="copy"
+                class="copy"
+                onclick="copyURL()">
+                📋 Copy Thumbnail URL
+            </button>
 
         </div>
+
 
         <div class="info">
             Supports YouTube videos, Shorts and youtu.be links.
         </div>
 
     </div>
+
 
     <div class="footer">
         © 2026 YouTube Thumbnail Downloader
@@ -345,61 +358,65 @@ input::placeholder {
 <script>
 
 let videoID = "";
-let selectedQuality = "hd";
-let thumbnailURL = "";
+let quality = "hd";
+let imageURL = "";
 
 
-/* Get YouTube Video ID */
+/* -------------------------
+   GET VIDEO ID
+------------------------- */
 
-function getVideoID(url) {
+function getVideoID(url){
 
-    try {
+    try{
 
-        const parsed = new URL(url);
-
-        let host = parsed.hostname.toLowerCase();
+        const u = new URL(url);
+        const host = u.hostname.toLowerCase();
 
         /* youtube.com/watch?v= */
 
-        if (
+        if(
             host === "youtube.com" ||
             host === "www.youtube.com" ||
             host === "m.youtube.com"
-        ) {
+        ){
 
-            const v = parsed.searchParams.get("v");
+            let id = u.searchParams.get("v");
 
-            if (v) {
-                return v;
+            if(id){
+                return id;
             }
+
 
             /* Shorts */
 
-            if (parsed.pathname.startsWith("/shorts/")) {
+            if(u.pathname.startsWith("/shorts/")){
 
-                return parsed.pathname
+                return u.pathname
                     .split("/shorts/")[1]
                     .split("/")[0];
 
             }
 
+
             /* Embed */
 
-            if (parsed.pathname.startsWith("/embed/")) {
+            if(u.pathname.startsWith("/embed/")){
 
-                return parsed.pathname
+                return u.pathname
                     .split("/embed/")[1]
                     .split("/")[0];
 
             }
+
         }
 
 
-        /* youtu.be/videoID */
+        /* youtu.be */
 
-        if (host === "youtu.be") {
+        if(host === "youtu.be"){
 
-            return parsed.pathname
+            return u.pathname
                 .substring(1)
                 .split("/")[0];
 
@@ -407,7 +424,7 @@ function getVideoID(url) {
 
         return null;
 
-    } catch (error) {
+    }catch(e){
 
         return null;
 
@@ -416,37 +433,14 @@ function getVideoID(url) {
 }
 
 
-/* Create thumbnail URL */
+/* -------------------------
+   GET THUMBNAIL
+------------------------- */
 
-function createThumbnailURL() {
-
-    if (!videoID) return;
-
-    if (selectedQuality === "hd") {
-
-        thumbnailURL =
-            "https://img.youtube.com/vi/" +
-            videoID +
-            "/maxresdefault.jpg";
-
-    } else {
-
-        thumbnailURL =
-            "https://img.youtube.com/vi/" +
-            videoID +
-            "/hqdefault.jpg";
-
-    }
-
-}
-
-
-/* Get Thumbnail */
-
-function getThumbnail() {
+function getThumbnail(){
 
     const input =
-        document.getElementById("youtubeUrl");
+        document.getElementById("url");
 
     const error =
         document.getElementById("error");
@@ -454,11 +448,12 @@ function getThumbnail() {
     const result =
         document.getElementById("result");
 
-    const image =
+    const img =
         document.getElementById("thumbnail");
 
 
-    const url = input.value.trim();
+    const url =
+        input.value.trim();
 
 
     error.style.display = "none";
@@ -466,68 +461,74 @@ function getThumbnail() {
     result.style.display = "none";
 
 
-    if (!url) {
+    if(!url){
 
-        error.innerText =
-            "❌ YouTube video link paste karo.";
-
-        error.style.display = "block";
+        showError("❌ YouTube link paste karo.");
 
         return;
 
     }
 
 
-    videoID = getVideoID(url);
+    videoID =
+        getVideoID(url);
 
 
-    if (!videoID) {
+    if(!videoID){
 
-        error.innerText =
-            "❌ Valid YouTube video link nahi mili.";
-
-        error.style.display = "block";
+        showError("❌ Valid YouTube link nahi mili.");
 
         return;
 
     }
 
 
-    selectedQuality = "hd";
+    quality = "hd";
 
-    document.getElementById("hdBtn")
+    document.getElementById("hd")
         .classList.add("active");
 
-    document.getElementById("sdBtn")
+    document.getElementById("hq")
         .classList.remove("active");
 
 
-    createThumbnailURL();
+    imageURL =
+        "https://img.youtube.com/vi/" +
+        videoID +
+        "/maxresdefault.jpg";
 
 
-    image.src = thumbnailURL;
+    img.src = imageURL;
 
 
-    image.onerror = function() {
+    img.onload = function(){
 
-        /* HD unavailable → Standard */
-
-        selectedQuality = "sd";
-
-        document.getElementById("hdBtn")
-            .classList.remove("active");
-
-        document.getElementById("sdBtn")
-            .classList.add("active");
-
-        createThumbnailURL();
-
-        image.src = thumbnailURL;
+        result.style.display = "block";
 
     };
 
 
-    image.onload = function() {
+    img.onerror = function(){
+
+        /* HD available nahi hai */
+
+        quality = "hq";
+
+        document.getElementById("hd")
+            .classList.remove("active");
+
+        document.getElementById("hq")
+            .classList.add("active");
+
+
+        imageURL =
+            "https://img.youtube.com/vi/" +
+            videoID +
+            "/hqdefault.jpg";
+
+
+        img.src = imageURL;
+
 
         result.style.display = "block";
 
@@ -536,98 +537,86 @@ function getThumbnail() {
 }
 
 
-/* Quality Selector */
+/* -------------------------
+   QUALITY
+------------------------- */
 
-function selectQuality(quality) {
+function setQuality(type){
 
-    if (!videoID) return;
-
-
-    selectedQuality = quality;
-
-
-    if (quality === "hd") {
-
-        document.getElementById("hdBtn")
-            .classList.add("active");
-
-        document.getElementById("sdBtn")
-            .classList.remove("active");
-
-    } else {
-
-        document.getElementById("sdBtn")
-            .classList.add("active");
-
-        document.getElementById("hdBtn")
-            .classList.remove("active");
-
+    if(!videoID){
+        return;
     }
 
 
-    createThumbnailURL();
+    quality = type;
 
 
-    document.getElementById("thumbnail").src =
-        thumbnailURL;
-
-}
+    const img =
+        document.getElementById("thumbnail");
 
 
-/* Download */
+    if(type === "hd"){
 
-async function downloadThumbnail() {
-
-    if (!thumbnailURL) return;
-
-
-    try {
-
-        const response =
-            await fetch(thumbnailURL);
-
-        if (!response.ok) {
-            throw new Error("Download failed");
-        }
-
-
-        const blob =
-            await response.blob();
-
-
-        const downloadURL =
-            URL.createObjectURL(blob);
-
-
-        const link =
-            document.createElement("a");
-
-
-        link.href = downloadURL;
-
-        link.download =
-            "youtube-thumbnail-" +
+        imageURL =
+            "https://img.youtube.com/vi/" +
             videoID +
-            ".jpg";
+            "/maxresdefault.jpg";
 
 
-        document.body.appendChild(link);
+        document.getElementById("hd")
+            .classList.add("active");
 
-        link.click();
+        document.getElementById("hq")
+            .classList.remove("active");
 
-        document.body.removeChild(link);
+    }else{
+
+        imageURL =
+            "https://img.youtube.com/vi/" +
+            videoID +
+            "/hqdefault.jpg";
 
 
-        URL.revokeObjectURL(downloadURL);
+        document.getElementById("hq")
+            .classList.add("active");
+
+        document.getElementById("hd")
+            .classList.remove("active");
+
+    }
 
 
-    } catch (error) {
+    img.src = imageURL;
 
-        /* Browser fallback */
+}
 
-        window.open(
-            thumbnailURL,
-            "_blank"
+
+/* -------------------------
+   DOWNLOAD
+------------------------- */
+
+function downloadImage(){
+
+    if(!imageURL){
+        return;
+    }
+
+
+    /*
+       Open image in a new tab.
+
+       This is more reliable on mobile browsers
+       than forcing a cross-origin download.
+    */
+
+    const newTab =
+        window.open(imageURL, "_blank");
+
+
+    if(!newTab){
+
+        alert(
+            "Download ke liye browser mein image open karo."
         );
 
     }
@@ -635,44 +624,43 @@ async function downloadThumbnail() {
 }
 
 
-/* Copy Thumbnail URL */
+/* -------------------------
+   COPY URL
+------------------------- */
 
-async function copyThumbnailURL() {
+async function copyURL(){
 
-    if (!thumbnailURL) return;
+    if(!imageURL){
+        return;
+    }
 
 
-    try {
+    try{
 
-        await navigator.clipboard.writeText(
-            thumbnailURL
-        );
+        await navigator.clipboard
+            .writeText(imageURL);
 
 
         const button =
-            document.querySelector(".copy");
-
-
-        const oldText =
-            button.innerText;
+            document.getElementById("copy");
 
 
         button.innerText =
-            "✅ Copied!";
+            "✅ URL Copied!";
 
 
-        setTimeout(function() {
+        setTimeout(function(){
 
             button.innerText =
-                oldText;
+                "📋 Copy Thumbnail URL";
 
-        }, 1500);
+        },1500);
 
 
-    } catch (error) {
+    }catch(e){
 
         alert(
-            "Thumbnail URL copy nahi ho paya."
+            "URL copy nahi ho paya."
         );
 
     }
@@ -680,12 +668,32 @@ async function copyThumbnailURL() {
 }
 
 
-/* Enter key support */
+/* -------------------------
+   ERROR
+------------------------- */
 
-document.getElementById("youtubeUrl")
-    .addEventListener("keydown", function(event) {
+function showError(message){
 
-        if (event.key === "Enter") {
+    const error =
+        document.getElementById("error");
+
+
+    error.innerText = message;
+
+    error.style.display = "block";
+
+}
+
+
+/* -------------------------
+   ENTER KEY
+------------------------- */
+
+document
+    .getElementById("url")
+    .addEventListener("keydown", function(e){
+
+        if(e.key === "Enter"){
 
             getThumbnail();
 
@@ -696,4 +704,4 @@ document.getElementById("youtubeUrl")
 </script>
 
 </body>
-              </html>
+    </html>
