@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YouTube Thumbnail Downloader</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 550px;
+  background: #1b1b1b;
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 28px;
+}
+
+.subtitle {
+  color: #aaa;
+  margin-bottom: 25px;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background: #2b2b2b;
+  color: white;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #ff0000;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+button:hover {
+  background: #d90000;
+}
+
+#result {
+  display: none;
+  margin-top: 25px;
+}
+
+#thumbnail {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.download {
+  background: #16a34a;
+}
+
+.download:hover {
+  background: #12833b;
+}
+
+#error {
+  color: #ff5555;
+  margin-top: 15px;
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🎬 YouTube Thumbnail Downloader</h1>
+
+  <div class="subtitle">
+    YouTube video link paste karo aur thumbnail download karo
+  </div>
+
+  <input
+    type="text"
+    id="url"
+    placeholder="Paste YouTube video link here..."
+  >
+
+  <button onclick="getThumbnail()">
+    🔍 Get Thumbnail
+  </button>
+
+  <div id="error">
+    ❌ Valid YouTube link paste karo.
+  </div>
+
+  <div id="result">
+
+    <img id="thumbnail" src="" alt="YouTube Thumbnail">
+
+    <button class="download" onclick="downloadThumbnail()">
+      ⬇️ Download Thumbnail
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+let thumbnailURL = "";
+
+function getVideoID(url) {
+
+  let videoID = null;
+
+  try {
+
+    const parsedURL = new URL(url);
+
+    // youtube.com/watch?v=
+    if (parsedURL.hostname.includes("youtube.com")) {
+      videoID = parsedURL.searchParams.get("v");
+    }
+
+    // youtu.be/
+    if (parsedURL.hostname.includes("youtu.be")) {
+      videoID = parsedURL.pathname.substring(1);
+    }
+
+    // youtube.com/shorts/
+    if (parsedURL.pathname.includes("/shorts/")) {
+      videoID = parsedURL.pathname.split("/shorts/")[1];
+    }
+
+    // youtube.com/embed/
+    if (parsedURL.pathname.includes("/embed/")) {
+      videoID = parsedURL.pathname.split("/embed/")[1];
+    }
+
+  } catch (e) {
+    return null;
+  }
+
+  if (videoID) {
+    videoID = videoID.split(/[?&#]/)[0];
+  }
+
+  return videoID;
+}
+
+
+function getThumbnail() {
+
+  const url = document.getElementById("url").value.trim();
+
+  const error = document.getElementById("error");
+  const result = document.getElementById("result");
+  const image = document.getElementById("thumbnail");
+
+  error.style.display = "none";
+  result.style.display = "none";
+
+  const videoID = getVideoID(url);
+
+  if (!videoID) {
+    error.style.display = "block";
+    return;
+  }
+
+  // Maximum quality thumbnail
+  thumbnailURL =
+    "https://img.youtube.com/vi/" +
+    videoID +
+    "/maxresdefault.jpg";
+
+  image.src = thumbnailURL;
+
+  image.onerror = function() {
+
+    // If HD thumbnail isn't available,
+    // use standard high quality thumbnail
+    thumbnailURL =
+      "https://img.youtube.com/vi/" +
+      videoID +
+      "/hqdefault.jpg";
+
+    image.src = thumbnailURL;
+
+  };
+
+  result.style.display = "block";
+}
+
+
+async function downloadThumbnail() {
+
+  if (!thumbnailURL) return;
+
+  try {
+
+    const response = await fetch(thumbnailURL);
+
+    const blob = await response.blob();
+
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "youtube-thumbnail.jpg";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    window.URL.revokeObjectURL(url);
+
+  } catch (error) {
+
+    // Fallback
+    window.open(thumbnailURL, "_blank");
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
